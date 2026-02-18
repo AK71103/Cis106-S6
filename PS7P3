@@ -1,0 +1,36 @@
+#PS7P3
+#Alexander Kazantzis
+#2-18-26
+# Step 1: Create a sample text file with employee last names and salaries
+with open("employees.txt", "w") as file:
+    file.write("Adams 30000.00\n")
+    file.write("Baker 75000.00\n")
+    file.write("Smith 45000.00\n")
+
+# Step 2: Define bonus rate chart
+def Get_BnsRte(salary):
+    if salary >= 100000:
+        return 0.2
+    elif 100000>salary>=50000:
+        return 0.15
+    else:
+        return 0.1
+        
+# Step 3: Read file and calculate bonuses
+SumBns = 0.0
+
+print(f"{'LstNme':<10} {'Salary':>12} {'SalBns':>12}")
+print("-" * 36)
+
+with open("employees.txt", "r") as file:
+    for line in file:
+        LstNme, salary_str = line.strip().split()
+        salary = float(salary_str)
+        BnsRte = Get_BnsRte(salary)
+        SalBns = salary * BnsRte
+        SumBns += SalBns
+        print(f"{LstNme:<10} ${salary:>10,.2f} ${SalBns:>10,.2f}")
+
+# Step 4: Display total bonuses
+print("-" * 36)
+print(f"{'Total Bonus Paid:':<22} ${SumBns:>10,.2f}")
